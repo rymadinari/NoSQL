@@ -1,0 +1,9 @@
+# Fichiers JSON de données
+*.json
+
+# Fichiers temporaires
+*.log
+
+# Environnement Python
+.venv/
+__pycache__/
