@@ -1,0 +1,12 @@
+# Fichiers JSON de données
+*.json
+
+# Fichiers temporaires
+*.log
+*.tmp
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
