@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  cfg1:
+    image: mongo:7.0
+    container_name: cfg1
+    command: mongod --configsvr --replSet cfgRS --port 27017 --bind_ip_all
+    ports:
+      - "27119:27017"
+    volumes:
+      - cfg1_data:/data/db
+
+  shardA:
+    image: mongo:7.0
+    container_name: shardA
+    command: mongod --shardsvr --replSet shardA --port 27017 --bind_ip_all
+    ports:
+      - "27120:27017"
+    volumes:
+      - shardA_data:/data/db
+
+  shardB:
+    image: mongo:7.0
+    container_name: shardB
+    command: mongod --shardsvr --replSet shardB --port 27017 --bind_ip_all
+    ports:
+      - "27121:27017"
+    volumes:
+      - shardB_data:/data/db
+
+  mongos:
+    image: mongo:7.0
+    container_name: mongos
+    command: mongos --configdb cfgRS/cfg1:27017 --port 27017 --bind_ip_all
+    ports:
+      - "27122:27017"
+    depends_on:
+      - cfg1
+      - shardA
+      - shardB
+
+volumes:
+  cfg1_data:
+  shardA_data:
+  shardB_data:

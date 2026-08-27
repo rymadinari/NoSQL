@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  mongo-j4:
+    image: mongo:7.0
+    container_name: mongo-j4
+    command: mongod --port 27017 --bind_ip_all
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: ipssi2025
+    volumes:
+      - mongo_j4_data:/data/db
+
+volumes:
+  mongo_j4_data:
